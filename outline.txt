@@ -90,7 +90,11 @@ I. Toy model of a computer system
   for later discussions. Keep in mind that SIPE made this into an hour-long
   lecture!
 
-FOLLOW KADIN'S TOPICS AND EXAMPLES
+II. Vectorizing loops
+  a. Often just called "vectorizing", but the goal is to replace loops 
+  b. NCI: "Vectorization means converting for and while loops to equivalent
+    vector or matrix operations."
+
 
 ===============================================================================
 WORKED EXAMPLE: Iteratively profile and optimize, should review the major points
