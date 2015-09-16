@@ -1,7 +1,7 @@
 % Script. Read image and smooth with a square sliding window of Gaussian
 % weights.
 %
-% Version 01: Slow, but correct.
+% Version 03: Vectorize the interior loop
 %
 % Keith Ma, 9/15/2015
 
@@ -10,7 +10,6 @@ clear all
 % define parameters
 image_name = '../data/moon_noisy.png';
 window_size = 9; % pixels, odd
-window_sigma = 3; % pixels
 
 % read in data
 image = imread(image_name);
@@ -27,29 +26,22 @@ for ii = 1:nump
     image = [zeros(1, numc+2*nump); image; zeros(1, numc+2*nump)];
 end
 
-% precompute constants
-weight = 1/window_size^2;
-delta_win = (window_size-1)/2;
-
 % loop over all pixels
 for ii = (1+nump):(numr+nump)
-    fprintf('%i of %i\n', ii-nump, numr);
+    fprintf('column %i of %i\n', ii-nump, numr);
     for jj = (1+nump):(numc+nump)
    
-        % VECTORIZE COSTLY LOOPS
-        % loop over pixels in local window            
-        pp = (ii-delta_win):(ii+delta_win);
-        qq = (jj-delta_win):(jj+delta_win) ;            
-        val = sum(sum(image(pp,qq)));            
-        
-        % apply common factors once
-        smooth_image(ii-nump, jj-nump) = val*weight;
+        pp = (ii-nump):(ii+nump);
+        qq = (jj-nump):(jj+nump);            
+        val = sum(sum(image(pp,qq)));
+        smoothed(ii-nump, jj-nump) = val;
                 
     end
 end
+smoothed = smoothed/window_size^2;
 
 % plot result
 figure;
-imagesc(smooth_image);
+imagesc(smoothed);
 colormap(gray);
 axis equal
