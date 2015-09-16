@@ -27,6 +27,11 @@ for ii = 1:nump
     image = [zeros(1, numc+2*nump); image; zeros(1, numc+2*nump)];
 end
 
+% MOVE WORK OUT OF THE LOOP
+% precompute constants
+weight = 1/window_size^2;
+delta_win = (window_size-1)/2;
+
 % loop over all pixels
 for ii = (1+nump):(numr+nump)
     fprintf('%i of %i\n', ii-nump, numr);
@@ -34,14 +39,15 @@ for ii = (1+nump):(numr+nump)
    
         % loop over pixels in local window    
         val = 0;
-        for pp = (ii-(window_size-1)/2):(ii+(window_size-1)/2)
-            for qq = (jj-(window_size-1)/2):(jj+(window_size-1)/2)            
-                weight = 1/window_size^2; 
-                val = val+image(pp,qq)*weight;
+        for pp = (ii-delta_win):(ii+delta_win)
+            for qq = (jj-delta_win):(jj+delta_win)             
+                val = val+image(pp,qq);
             end
         end
         
-        smooth_image(ii-nump, jj-nump) = val;
+        % MOVE WORK OUT OF THE LOOP
+        % apply common factors once
+        smooth_image(ii-nump, jj-nump) = val*weight;
                 
     end
 end

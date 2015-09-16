@@ -27,21 +27,23 @@ for ii = 1:nump
     image = [zeros(1, numc+2*nump); image; zeros(1, numc+2*nump)];
 end
 
+% precompute constants
+weight = 1/window_size^2;
+delta_win = (window_size-1)/2;
+
 % loop over all pixels
 for ii = (1+nump):(numr+nump)
     fprintf('%i of %i\n', ii-nump, numr);
     for jj = (1+nump):(numc+nump)
    
-        % loop over pixels in local window    
-        val = 0;
-        for pp = (ii-(window_size-1)/2):(ii+(window_size-1)/2)
-            for qq = (jj-(window_size-1)/2):(jj+(window_size-1)/2)            
-                weight = 1/window_size^2; 
-                val = val+image(pp,qq)*weight;
-            end
-        end
+        % VECTORIZE COSTLY LOOPS
+        % loop over pixels in local window            
+        pp = (ii-delta_win):(ii+delta_win);
+        qq = (jj-delta_win):(jj+delta_win) ;            
+        val = sum(sum(image(pp,qq)));            
         
-        smooth_image(ii-nump, jj-nump) = val;
+        % apply common factors once
+        smooth_image(ii-nump, jj-nump) = val*weight;
                 
     end
 end
