@@ -1,0 +1,21 @@
+Hi everyone,
+
+Thanks for coming to the tutorial on Wednesday. I am writing to point you towards the slides and example from class, and to make sure that you have contact information for me and the Research Computing Services team in case you need some help in the future. 
+
+You can find the slides and worked example at the link below. The "Tuning MATLAB Codes For Better Performance" materials are the first item in the "High Performance Computing Tutorials" section. 
+
+  http://www.bu.edu/tech/support/research/training-consulting/live-tutorials/
+
+As I mentioned in class, the most complete reference currently available for performance tuning in MATLAB is this textbook: 
+
+  http://undocumentedmatlab.com/books/matlab-performance
+
+Feel free to contact me and the rest of the Research Computing Services team with problems big and small at any time. We are here to help and happy to do it. To reach me directly, you can email keithma@bu.edu or call my office at 617-358-1873. To reach the whole team, you can submit a help request via the web at the link below, or by emailing ithelp@bu.edu.
+
+  http://www.bu.edu/tech/contact/
+
+I wish you all the best of luck, and please do not hesitate to contact us for help.
+
+Best,
+Keith
+
