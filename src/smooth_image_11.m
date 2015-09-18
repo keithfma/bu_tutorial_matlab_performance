@@ -15,10 +15,14 @@ image = double(image)+1;
 [numr, numc] = size(image);
 
 window = ones(window_size)/window_size^2;
-smoothed = conv2(image, window);
+smoothed = conv2(image, window, 'same');
 
 % plot result
 figure;
 imagesc(smoothed);
 colormap(gray);
 axis equal
+
+% % save result
+% imwrite(uint16(smoothed), '../moon_smooth.png', 'BitDepth', 16);
+
